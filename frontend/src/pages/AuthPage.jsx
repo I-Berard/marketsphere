@@ -45,30 +45,37 @@ export function AuthPage({ mode }) {
   }
 
   return (
-    <div className="auth-screen">
-      <form className="auth-card" onSubmit={onSubmit}>
-        <div style={{ display: "flex", justifyContent: "center" }}><Mark /></div>
-        <h1>{mode === "login" ? "Sign in" : "Create account"}</h1>
-        <p className="lead">Cloud Sphere ecommerce</p>
-        <div className="field">
-          <label>Email</label>
-          <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required autoComplete="username" />
+    <div className="min-h-screen flex items-center justify-center p-4 relative overflow-hidden bg-background">
+      <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] rounded-full bg-primary/10 blur-[100px] pointer-events-none"></div>
+      <div className="absolute bottom-[-10%] right-[-10%] w-[500px] h-[500px] rounded-full bg-secondary/10 blur-[100px] pointer-events-none"></div>
+      
+      <form className="glass-card w-full max-w-md p-8 md:p-10 shadow-2xl relative z-10" onSubmit={onSubmit}>
+        <div className="flex justify-center mb-6"><Mark /></div>
+        <h1 className="text-3xl font-bold text-center text-text-main mb-2 tracking-tight">{mode === "login" ? "Welcome back" : "Create account"}</h1>
+        <p className="text-center text-text-muted mb-8 font-medium">Cloud Sphere ecommerce</p>
+        
+        <div className="flex flex-col gap-1.5 mb-5">
+          <label className="text-xs font-bold text-text-muted uppercase tracking-wider ml-1">Email</label>
+          <input className="premium-input" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required autoComplete="username" placeholder="name@example.com" />
         </div>
-        <div className="field">
-          <label htmlFor="auth-password">Password</label>
-          <div className="password-field">
+        
+        <div className="flex flex-col gap-1.5 mb-6">
+          <label className="text-xs font-bold text-text-muted uppercase tracking-wider ml-1" htmlFor="auth-password">Password</label>
+          <div className="relative">
             <input
               id="auth-password"
+              className="premium-input pr-12"
               type={showPassword ? "text" : "password"}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
               minLength={8}
               autoComplete={mode === "login" ? "current-password" : "new-password"}
+              placeholder="••••••••"
             />
             <button
               type="button"
-              className="password-toggle"
+              className="absolute right-2 top-1/2 -translate-y-1/2 w-9 h-9 rounded-lg flex items-center justify-center text-text-muted hover:bg-surface hover:text-primary transition-colors"
               aria-label={showPassword ? "Hide password" : "Show password"}
               aria-pressed={showPassword}
               onClick={() => setShowPassword((open) => !open)}
@@ -77,21 +84,25 @@ export function AuthPage({ mode }) {
             </button>
           </div>
         </div>
+        
         {mode === "register" ? (
-          <div className="field">
-            <label>Mobile (07xxxxxxxx)</label>
-            <input value={phone} onChange={(e) => setPhone(e.target.value)} required pattern="^07[0-9]{8}$" />
+          <div className="flex flex-col gap-1.5 mb-6">
+            <label className="text-xs font-bold text-text-muted uppercase tracking-wider ml-1">Mobile</label>
+            <input className="premium-input" value={phone} onChange={(e) => setPhone(e.target.value)} required pattern="^07[0-9]{8}$" placeholder="07xxxxxxxx" />
           </div>
         ) : null}
-        {error ? <p className="error">{error}</p> : null}
-        <button className="btn btn-primary btn-block" type="submit">
+        
+        {error ? <div className="bg-danger/10 text-danger text-sm font-semibold p-3 rounded-xl border border-danger/20 mb-6">{error}</div> : null}
+        
+        <button className="btn btn-primary w-full py-4 text-lg shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 mt-2" type="submit">
           {mode === "login" ? "Sign in" : "Create account"}
         </button>
-        <p className="muted" style={{ textAlign: "center", marginTop: 16 }}>
+        
+        <p className="text-center mt-8 text-text-muted font-medium text-sm">
           {mode === "login" ? (
-            <>Need an account? <Link to="/register">Register</Link></>
+            <>Need an account? <Link to="/register" className="text-primary hover:underline ml-1">Register</Link></>
           ) : (
-            <>Already a customer? <Link to="/login">Sign in</Link></>
+            <>Already a customer? <Link to="/login" className="text-primary hover:underline ml-1">Sign in</Link></>
           )}
         </p>
       </form>

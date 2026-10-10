@@ -26,7 +26,11 @@ export default function App() {
         </Route>
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
-      {toast ? <div className="toast">{toast}</div> : null}
+      {toast ? (
+        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 bg-text-main text-white px-6 py-3 rounded-full shadow-2xl z-50 font-medium tracking-wide flex items-center gap-2">
+          {toast}
+        </div>
+      ) : null}
     </>
   );
 }
