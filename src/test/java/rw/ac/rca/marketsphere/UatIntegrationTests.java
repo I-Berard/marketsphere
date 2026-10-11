@@ -1,4 +1,4 @@
-package rw.ac.rca.cloudsphere;
+package rw.ac.rca.marketsphere;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -16,7 +16,7 @@ import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.utility.DockerImageName;
-import rw.ac.rca.cloudsphere.config.DataInitializer;
+import rw.ac.rca.marketsphere.config.DataInitializer;
 
 import java.util.UUID;
 
@@ -38,9 +38,9 @@ class UatIntegrationTests {
     @Container
     static final PostgreSQLContainer<?> POSTGRES =
             new PostgreSQLContainer<>(DockerImageName.parse("postgres:16-alpine"))
-                    .withDatabaseName("cloudsphere")
-                    .withUsername("cloudsphere")
-                    .withPassword("cloudsphere");
+                    .withDatabaseName("marketsphere")
+                    .withUsername("marketsphere")
+                    .withPassword("marketsphere");
 
     @Container
     static final GenericContainer<?> REDIS =
@@ -54,7 +54,7 @@ class UatIntegrationTests {
         r.add("spring.datasource.password", POSTGRES::getPassword);
         r.add("spring.data.redis.host", REDIS::getHost);
         r.add("spring.data.redis.port", () -> REDIS.getMappedPort(6379));
-        r.add("cloudsphere.jwt.secret", () -> "cloudsphere-test-secret-32bytes!!");
+        r.add("marketsphere.jwt.secret", () -> "marketsphere-test-secret-32bytes!!");
     }
 
     private static String customerToken;
@@ -79,7 +79,7 @@ class UatIntegrationTests {
         if (adminToken != null) return;
         MvcResult res = mvc.perform(post("/api/v1/auth/login")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"email\":\"admin@cloudsphere.rw\",\"password\":\"" + DataInitializer.DEMO_PASSWORD + "\"}"))
+                        .content("{\"email\":\"admin@marketsphere.rw\",\"password\":\"" + DataInitializer.DEMO_PASSWORD + "\"}"))
                 .andExpect(status().isOk())
                 .andReturn();
         adminToken = field(res, "/accessToken");
@@ -90,10 +90,10 @@ class UatIntegrationTests {
     void uat001_customerRegistration() throws Exception {
         MvcResult res = mvc.perform(post("/api/v1/auth/register")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"email\":\"uat.customer@cloudsphere.rw\",\"password\":\"UatPass1!\",\"phone\":\"0780000099\"}"))
+                        .content("{\"email\":\"uat.customer@marketsphere.rw\",\"password\":\"UatPass1!\",\"phone\":\"0780000099\"}"))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.accessToken").isNotEmpty())
-                .andExpect(jsonPath("$.user.email").value("uat.customer@cloudsphere.rw"))
+                .andExpect(jsonPath("$.user.email").value("uat.customer@marketsphere.rw"))
                 .andReturn();
         customerToken = field(res, "/accessToken");
         assertNotNull(customerToken);
@@ -104,10 +104,10 @@ class UatIntegrationTests {
     void uat002_customerLogin() throws Exception {
         MvcResult res = mvc.perform(post("/api/v1/auth/login")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"email\":\"uat.customer@cloudsphere.rw\",\"password\":\"UatPass1!\"}"))
+                        .content("{\"email\":\"uat.customer@marketsphere.rw\",\"password\":\"UatPass1!\"}"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.accessToken").isNotEmpty())
-                .andExpect(jsonPath("$.user.email").value("uat.customer@cloudsphere.rw"))
+                .andExpect(jsonPath("$.user.email").value("uat.customer@marketsphere.rw"))
                 .andReturn();
         customerToken = field(res, "/accessToken");
     }
@@ -117,7 +117,7 @@ class UatIntegrationTests {
     void uat003_invalidLogin() throws Exception {
         mvc.perform(post("/api/v1/auth/login")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"email\":\"uat.customer@cloudsphere.rw\",\"password\":\"WrongPass99\"}"))
+                        .content("{\"email\":\"uat.customer@marketsphere.rw\",\"password\":\"WrongPass99\"}"))
                 .andExpect(status().isUnauthorized())
                 .andExpect(jsonPath("$.detail").value("email or password is incorrect"))
                 .andExpect(content().string(not(containsString("WrongPass99"))));
@@ -423,7 +423,7 @@ class UatIntegrationTests {
         String sensitivePassword = "SuperSecret123!";
         mvc.perform(post("/api/v1/auth/login")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"email\":\"nobody@cloudsphere.rw\",\"password\":\"" + sensitivePassword + "\"}"))
+                        .content("{\"email\":\"nobody@marketsphere.rw\",\"password\":\"" + sensitivePassword + "\"}"))
                 .andExpect(status().isUnauthorized())
                 .andExpect(content().string(not(containsString(sensitivePassword))));
     }
