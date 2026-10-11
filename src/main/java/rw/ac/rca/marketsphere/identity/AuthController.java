@@ -1,4 +1,4 @@
-package rw.ac.rca.cloudsphere.identity;
+package rw.ac.rca.marketsphere.identity;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirements;
@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import rw.ac.rca.cloudsphere.common.exception.ApiException;
-import rw.ac.rca.cloudsphere.security.AuthPrincipal;
-import rw.ac.rca.cloudsphere.security.TokenBlacklist;
+import rw.ac.rca.marketsphere.common.exception.ApiException;
+import rw.ac.rca.marketsphere.security.AuthPrincipal;
+import rw.ac.rca.marketsphere.security.TokenBlacklist;
 
 import java.time.Instant;
 import java.util.Map;
