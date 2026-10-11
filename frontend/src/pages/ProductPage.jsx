@@ -43,7 +43,7 @@ export function ProductPage() {
         </nav>
         <div className="text-sm text-text-muted font-medium mb-1">{product.sku}</div>
         <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-text-main mb-3">{product.name}</h1>
-        <p className="text-text-muted mb-6 leading-relaxed text-lg">{product.description || "A Cloud Sphere catalogue item. Money is integer RWF."}</p>
+        <p className="text-text-muted mb-6 leading-relaxed text-lg">{product.description || "A Market Sphere catalogue item. Money is integer RWF."}</p>
         <div className="text-4xl font-bold text-primary mb-2">{money(product.priceRwf)}</div>
         <p className={`text-sm font-bold mb-4 ${inStock ? "text-success" : "text-danger"}`}>
           {inStock ? `${product.stockQty} available` : "Currently out of stock"}
