@@ -1,4 +1,4 @@
-package rw.ac.rca.cloudsphere;
+package rw.ac.rca.marketsphere;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -16,7 +16,7 @@ import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.utility.DockerImageName;
-import rw.ac.rca.cloudsphere.config.DataInitializer;
+import rw.ac.rca.marketsphere.config.DataInitializer;
 
 import static org.hamcrest.Matchers.not;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -32,9 +32,9 @@ class AuthAndCatalogTests {
 
     @Container
     static final PostgreSQLContainer<?> POSTGRES = new PostgreSQLContainer<>(DockerImageName.parse("postgres:16-alpine"))
-            .withDatabaseName("cloudsphere")
-            .withUsername("cloudsphere")
-            .withPassword("cloudsphere");
+            .withDatabaseName("marketsphere")
+            .withUsername("marketsphere")
+            .withPassword("marketsphere");
 
     @Container
     static final GenericContainer<?> REDIS = new GenericContainer<>(DockerImageName.parse("redis:7-alpine"))
@@ -47,7 +47,7 @@ class AuthAndCatalogTests {
         registry.add("spring.datasource.password", POSTGRES::getPassword);
         registry.add("spring.data.redis.host", REDIS::getHost);
         registry.add("spring.data.redis.port", () -> REDIS.getMappedPort(6379));
-        registry.add("cloudsphere.jwt.secret", () -> "cloudsphere-test-secret-key-must-be-32b!!");
+        registry.add("marketsphere.jwt.secret", () -> "marketsphere-test-secret-key-must-be-32b!!");
     }
 
     @Autowired
@@ -68,16 +68,16 @@ class AuthAndCatalogTests {
         mvc.perform(post("/api/v1/auth/login")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
-                                {"email":"demo@cloudsphere.rw","password":"%s"}
+                                {"email":"demo@marketsphere.rw","password":"%s"}
                                 """.formatted(DataInitializer.DEMO_PASSWORD)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.accessToken").isNotEmpty())
-                .andExpect(jsonPath("$.user.email").value("demo@cloudsphere.rw"));
+                .andExpect(jsonPath("$.user.email").value("demo@marketsphere.rw"));
 
         mvc.perform(post("/api/v1/auth/login")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
-                                {"email":"demo@cloudsphere.rw","password":"WrongPass1"}
+                                {"email":"demo@marketsphere.rw","password":"WrongPass1"}
                                 """))
                 .andExpect(status().isUnauthorized())
                 .andExpect(jsonPath("$.detail").value("email or password is incorrect"));
