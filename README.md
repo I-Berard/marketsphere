@@ -1,11 +1,11 @@
-# Cloud Sphere API
+# Market Sphere API
 
-Production-style backend for the imaginary **Cloud Sphere Solutions** ecommerce platform (SPEDO501 Year 3 SPE capstone). It implements SRS `CSS-SRS-2026-001`: catalogue, auth, cart, discounts, checkout with a payment stub, wishlist, orders, and admin fulfillment.
+Production-style backend for the imaginary **Market Sphere Solutions** ecommerce platform (SPEDO501 Year 3 SPE capstone). It implements SRS `CSS-SRS-2026-001`: catalogue, auth, cart, discounts, checkout with a payment stub, wishlist, orders, and admin fulfillment.
 
 | | |
 |---|---|
 | Runtime | Java 21, Spring Boot 4.1 (WebMVC) |
-| Database | PostgreSQL 16, schema **`cloud_sphere`** |
+| Database | PostgreSQL 16, schema **`market_sphere`** |
 | Migrations | Flyway (`src/main/resources/db/migration`) |
 | Cache / tokens | Redis 7 (guest-cart merge helpers, JWT denylist on logout) |
 | API docs | OpenAPI 3 + Swagger UI (`springdoc` 3.1). Static contract: `docs/openapi.yaml` |
@@ -32,7 +32,7 @@ Production-style backend for the imaginary **Cloud Sphere Solutions** ecommerce 
               ┌──────────────┼──────────────┐
               │  JPA / Flyway│  Redis       │  PaymentGateway
               │  schema      │  denylist    │  (stub adapter)
-              │  cloud_sphere│              │
+              │ market_sphere│              │
               └──────────────┴──────────────┘
                              │
                         PostgreSQL
@@ -70,28 +70,28 @@ Production-style backend for the imaginary **Cloud Sphere Solutions** ecommerce 
 ## 2. How to navigate the codebase
 
 ```
-cloudsphere/
+marketsphere/
 ├── frontend/                   # React storefront (Skype / Fluent UI)
 ├── docker-compose.yml          # Postgres + Redis (default) and optional `api` profile
 ├── Dockerfile                  # Multi-stage JRE 21 image
 ├── docs/openapi.yaml           # Static OpenAPI 3 contract (same surface as Swagger)
 ├── pom.xml                     # Spring Boot 4.1 parent
-├── src/main/java/rw/ac/rca/cloudsphere/
-│   ├── CloudsphereApplication.java
+├── src/main/java/rw/ac/rca/marketsphere/
+│   ├── MarketsphereApplication.java
 │   ├── config/                 # start here for wiring
 │   ├── identity/ catalog/ cart/ order/ ...
 │   └── ...
 ├── src/main/resources/
 │   ├── application.properties
 │   ├── logback-spring.xml      # console logs; JSON on json/prod
-│   └── db/migration/V1__init_cloud_sphere.sql
+│   └── db/migration/V1__init_market_sphere.sql
 └── src/test/java/...           # Pricing + state machine + Testcontainers IT
 ```
 
 **Read in this order**
 
 1. `application.properties` — datasource, Flyway schema, JWT, payment stub.
-2. `db/migration/V1__init_cloud_sphere.sql` — physical model.
+2. `db/migration/V1__init_market_sphere.sql` — physical model.
 3. `config/SecurityConfig.java` — what is public vs `ROLE_ADMIN`.
 4. `commerce/Pricing.java` and `order/OrderStateMachine.java` — domain rules with no Spring.
 5. Controllers under `/api/v1` — HTTP surface (also visible in Swagger).
@@ -115,13 +115,13 @@ docker compose up -d
 docker compose ps
 ```
 
-Wait until `cloudsphere-postgres` and `cloudsphere-redis` are healthy.
+Wait until `marketsphere-postgres` and `marketsphere-redis` are healthy.
 
 If port **5432** or **6379** is already taken on your machine:
 
 ```bash
 POSTGRES_PORT=5433 REDIS_PUBLISH_PORT=6380 docker compose up -d
-DATABASE_URL=jdbc:postgresql://localhost:5433/cloudsphere REDIS_PORT=6380 ./mvnw spring-boot:run
+DATABASE_URL=jdbc:postgresql://localhost:5433/marketsphere REDIS_PORT=6380 ./mvnw spring-boot:run
 ```
 
 Optional — run Postgres, Redis, **and** the API in Docker (needs a JDK in the image build):
@@ -140,10 +140,10 @@ Or build a jar and run it:
 
 ```bash
 ./mvnw -q -DskipTests package
-java -jar target/cloudsphere-1.0.0-SNAPSHOT.jar
+java -jar target/marketsphere-1.0.0-SNAPSHOT.jar
 ```
 
-The process listens on **http://localhost:8080**. Flyway creates schema `cloud_sphere` and `DataInitializer` seeds demo rows if the tables are empty.
+The process listens on **http://localhost:8080**. Flyway creates schema `market_sphere` and `DataInitializer` seeds demo rows if the tables are empty.
 
 ### Step 2b — run the React storefront
 
@@ -155,7 +155,7 @@ npm install
 npm run dev
 ```
 
-Open **http://localhost:5173**. Sign in with `demo@cloudsphere.rw` / `CloudSphere1` (or `ops@cloudsphere.rw` for admin). Theme control is the moon icon on the left rail (light / dark / system).
+Open **http://localhost:5173**. Sign in with `demo@marketsphere.rw` / `MarketSphere1` (or `ops@marketsphere.rw` for admin). Theme control is the moon icon on the left rail (light / dark / system).
 
 ### Step 3 — smoke
 
@@ -173,20 +173,20 @@ Open docs:
 
 ### Step 4 — a first shopper flow
 
-Demo password for every seeded user is `CloudSphere1` (letter + digit, ≥ 8).
+Demo password for every seeded user is `MarketSphere1` (letter + digit, ≥ 8).
 
 | Email | Role | Notes |
 |---|---|---|
-| `demo@cloudsphere.rw` | CUSTOMER | Standard shipping |
-| `gold@cloudsphere.rw` | CUSTOMER | Free shipping under 50k |
-| `locked@cloudsphere.rw` | CUSTOMER | Already locked |
-| `ops@cloudsphere.rw` | ADMIN | Catalogue + fulfill |
+| `demo@marketsphere.rw` | CUSTOMER | Standard shipping |
+| `gold@marketsphere.rw` | CUSTOMER | Free shipping under 50k |
+| `locked@marketsphere.rw` | CUSTOMER | Already locked |
+| `ops@marketsphere.rw` | ADMIN | Catalogue + fulfill |
 
 ```bash
 # login
 TOKEN=$(curl -s -X POST http://localhost:8080/api/v1/auth/login \
   -H 'Content-Type: application/json' \
-  -d '{"email":"demo@cloudsphere.rw","password":"CloudSphere1"}' | jq -r .accessToken)
+  -d '{"email":"demo@marketsphere.rw","password":"MarketSphere1"}' | jq -r .accessToken)
 
 # list catalogue
 curl -s http://localhost:8080/api/v1/products | jq .
@@ -208,7 +208,7 @@ curl -s -X POST http://localhost:8080/api/v1/checkout \
   -d '{"paymentMethod":"MTN_MOMO"}'
 ```
 
-Default stub mode is `SUCCESS` (`PAYMENT_STUB_MODE` env / `cloudsphere.payment.stub-mode`). Repeat with the same `Idempotency-Key` to get the original order, not a second charge.
+Default stub mode is `SUCCESS` (`PAYMENT_STUB_MODE` env / `marketsphere.payment.stub-mode`). Repeat with the same `Idempotency-Key` to get the original order, not a second charge.
 
 ### Step 5 — tests
 
@@ -257,16 +257,16 @@ All business endpoints are under `/api/v1`. Errors are RFC 7807 `application/pro
 
 | Property / env | Default | Meaning |
 |---|---|---|
-| `DATABASE_URL` | `jdbc:postgresql://localhost:5432/cloudsphere` | JDBC URL |
-| `DATABASE_USERNAME` / `PASSWORD` | `cloudsphere` | DB user |
+| `DATABASE_URL` | `jdbc:postgresql://localhost:5432/marketsphere` | JDBC URL |
+| `DATABASE_USERNAME` / `PASSWORD` | `marketsphere` | DB user |
 | `REDIS_HOST` / `REDIS_PORT` | `localhost` / `6379` | Redis |
 | `POSTGRES_PORT` / `REDIS_PUBLISH_PORT` | `5432` / `6379` | Host ports published by Compose (change if those ports are taken) |
 | `JWT_SECRET` | dev-only string | **Change in any shared environment** (≥ 32 bytes) |
 | `PAYMENT_STUB_MODE` | `SUCCESS` | `SUCCESS`, `DECLINE`, `TIMEOUT` |
 | `CORS_ORIGINS` | localhost:3000,5173 | Allowed browser origins |
-| `cloudsphere.seed.enabled` | `true` | Seed demo users/products |
+| `marketsphere.seed.enabled` | `true` | Seed demo users/products |
 
-Schema is forced to **`cloud_sphere`** via Flyway `spring.flyway.default-schema` and `hibernate.default_schema`. Do not point this app at a database you care about without a dedicated catalog.
+Schema is forced to **`market_sphere`** via Flyway `spring.flyway.default-schema` and `hibernate.default_schema`. Do not point this app at a database you care about without a dedicated catalog.
 
 ---
 
