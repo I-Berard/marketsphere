@@ -1,19 +1,19 @@
-package rw.ac.rca.cloudsphere.order;
+package rw.ac.rca.marketsphere.order;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import rw.ac.rca.cloudsphere.cart.Cart;
-import rw.ac.rca.cloudsphere.cart.CartItem;
-import rw.ac.rca.cloudsphere.cart.CartRepository;
-import rw.ac.rca.cloudsphere.cart.CartResponse;
-import rw.ac.rca.cloudsphere.cart.CartService;
-import rw.ac.rca.cloudsphere.catalog.Product;
-import rw.ac.rca.cloudsphere.catalog.ProductRepository;
-import rw.ac.rca.cloudsphere.catalog.ProductStatus;
-import rw.ac.rca.cloudsphere.common.exception.ApiException;
-import rw.ac.rca.cloudsphere.config.CloudSphereProperties;
-import rw.ac.rca.cloudsphere.identity.UserRepository;
-import rw.ac.rca.cloudsphere.payment.PaymentGateway;
+import rw.ac.rca.marketsphere.cart.Cart;
+import rw.ac.rca.marketsphere.cart.CartItem;
+import rw.ac.rca.marketsphere.cart.CartRepository;
+import rw.ac.rca.marketsphere.cart.CartResponse;
+import rw.ac.rca.marketsphere.cart.CartService;
+import rw.ac.rca.marketsphere.catalog.Product;
+import rw.ac.rca.marketsphere.catalog.ProductRepository;
+import rw.ac.rca.marketsphere.catalog.ProductStatus;
+import rw.ac.rca.marketsphere.common.exception.ApiException;
+import rw.ac.rca.marketsphere.config.MarketSphereProperties;
+import rw.ac.rca.marketsphere.identity.UserRepository;
+import rw.ac.rca.marketsphere.payment.PaymentGateway;
 
 import java.time.Instant;
 import java.time.Year;
@@ -89,7 +89,7 @@ public class OrderService {
             order.addLine(line);
         }
 
-        CloudSphereProperties.StubMode override = parseStub(request.stubMode());
+        MarketSphereProperties.StubMode override = parseStub(request.stubMode());
         var charge = payments.charge(request.paymentMethod(), priced.totalRwf(), order.getId(), override);
 
         Payment payment = new Payment();
@@ -140,7 +140,7 @@ public class OrderService {
         if (order.getStatus() != OrderStatus.PAYMENT_TIMED_OUT && order.getStatus() != OrderStatus.PLACED) {
             throw ApiException.conflict("Order is not awaiting payment.");
         }
-        CloudSphereProperties.StubMode override = parseStub(request.stubMode());
+        MarketSphereProperties.StubMode override = parseStub(request.stubMode());
         var charge = payments.charge(request.paymentMethod(), order.getTotalRwf(), order.getId(), override);
         if (order.getPayment() != null) {
             order.getPayment().setStatus(charge.status());
@@ -214,12 +214,12 @@ public class OrderService {
         return v == null || v.isBlank() ? null : v.trim();
     }
 
-    private static CloudSphereProperties.StubMode parseStub(String raw) {
+    private static MarketSphereProperties.StubMode parseStub(String raw) {
         if (raw == null || raw.isBlank()) {
             return null;
         }
         try {
-            return CloudSphereProperties.StubMode.valueOf(raw.trim().toUpperCase(Locale.ROOT));
+            return MarketSphereProperties.StubMode.valueOf(raw.trim().toUpperCase(Locale.ROOT));
         } catch (IllegalArgumentException ex) {
             throw ApiException.badRequest("Unknown stubMode. Use SUCCESS, DECLINE or TIMEOUT.");
         }
