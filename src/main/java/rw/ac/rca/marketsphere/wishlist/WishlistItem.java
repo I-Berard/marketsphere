@@ -1,4 +1,4 @@
-package rw.ac.rca.cloudsphere.wishlist;
+package rw.ac.rca.marketsphere.wishlist;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
@@ -16,7 +16,7 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "wishlist_items", schema = "cloud_sphere")
+@Table(name = "wishlist_items", schema = "market_sphere")
 public class WishlistItem {
 
     @EmbeddedId
