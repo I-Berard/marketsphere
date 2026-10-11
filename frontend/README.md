@@ -1,4 +1,4 @@
-# Cloud Sphere storefront
+# Market Sphere storefront
 
 React (Vite) shop UI that talks to the Spring Boot API under `/api/v1`.
 
