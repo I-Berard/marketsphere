@@ -1,8 +1,8 @@
-package rw.ac.rca.cloudsphere.commerce;
+package rw.ac.rca.marketsphere.commerce;
 
 import org.junit.jupiter.api.Test;
-import rw.ac.rca.cloudsphere.common.exception.ApiException;
-import rw.ac.rca.cloudsphere.identity.LoyaltyTier;
+import rw.ac.rca.marketsphere.common.exception.ApiException;
+import rw.ac.rca.marketsphere.identity.LoyaltyTier;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
