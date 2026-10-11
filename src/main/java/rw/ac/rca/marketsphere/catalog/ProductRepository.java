@@ -1,4 +1,4 @@
-package rw.ac.rca.cloudsphere.catalog;
+package rw.ac.rca.marketsphere.catalog;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
