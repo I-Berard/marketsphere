@@ -1,4 +1,4 @@
-package rw.ac.rca.cloudsphere.config;
+package rw.ac.rca.marketsphere.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,7 +15,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import rw.ac.rca.cloudsphere.security.JwtAuthenticationFilter;
+import rw.ac.rca.marketsphere.security.JwtAuthenticationFilter;
 
 import java.util.List;
 
@@ -24,10 +24,10 @@ import java.util.List;
 public class SecurityConfig {
 
     private final JwtAuthenticationFilter jwtFilter;
-    private final CloudSphereProperties properties;
+    private final MarketSphereProperties properties;
     private final SecurityProblemHandlers problemHandlers;
 
-    public SecurityConfig(JwtAuthenticationFilter jwtFilter, CloudSphereProperties properties,
+    public SecurityConfig(JwtAuthenticationFilter jwtFilter, MarketSphereProperties properties,
                           SecurityProblemHandlers problemHandlers) {
         this.jwtFilter = jwtFilter;
         this.properties = properties;
