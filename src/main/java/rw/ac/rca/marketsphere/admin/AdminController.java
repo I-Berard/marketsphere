@@ -1,4 +1,4 @@
-package rw.ac.rca.cloudsphere.admin;
+package rw.ac.rca.marketsphere.admin;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -12,11 +12,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import rw.ac.rca.cloudsphere.catalog.CategoryResponse;
-import rw.ac.rca.cloudsphere.catalog.ProductResponse;
-import rw.ac.rca.cloudsphere.order.OrderRepository;
-import rw.ac.rca.cloudsphere.order.OrderResponse;
-import rw.ac.rca.cloudsphere.order.OrderService;
+import rw.ac.rca.marketsphere.catalog.CategoryResponse;
+import rw.ac.rca.marketsphere.catalog.ProductResponse;
+import rw.ac.rca.marketsphere.order.OrderRepository;
+import rw.ac.rca.marketsphere.order.OrderResponse;
+import rw.ac.rca.marketsphere.order.OrderService;
 
 import java.util.List;
 import java.util.UUID;
