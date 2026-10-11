@@ -8,9 +8,9 @@ RUN ./mvnw -q -DskipTests package
 
 FROM eclipse-temurin:21-jre-alpine
 WORKDIR /app
-RUN addgroup -S cloudsphere && adduser -S cloudsphere -G cloudsphere
-COPY --from=build /src/target/cloudsphere-1.0.0-SNAPSHOT.jar app.jar
-USER cloudsphere
+RUN addgroup -S marketsphere && adduser -S marketsphere -G marketsphere
+COPY --from=build /src/target/marketsphere-1.0.0-SNAPSHOT.jar app.jar
+USER marketsphere
 EXPOSE 8080
 ENV JAVA_OPTS="-XX:MaxRAMPercentage=75"
 ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -jar /app/app.jar"]
