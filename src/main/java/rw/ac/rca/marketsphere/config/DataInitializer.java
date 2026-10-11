@@ -1,4 +1,4 @@
-package rw.ac.rca.cloudsphere.config;
+package rw.ac.rca.marketsphere.config;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -7,18 +7,18 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-import rw.ac.rca.cloudsphere.catalog.Category;
-import rw.ac.rca.cloudsphere.catalog.CategoryRepository;
-import rw.ac.rca.cloudsphere.catalog.Product;
-import rw.ac.rca.cloudsphere.catalog.ProductRepository;
-import rw.ac.rca.cloudsphere.catalog.ProductStatus;
-import rw.ac.rca.cloudsphere.commerce.DiscountCode;
-import rw.ac.rca.cloudsphere.commerce.DiscountCodeRepository;
-import rw.ac.rca.cloudsphere.identity.LoyaltyTier;
-import rw.ac.rca.cloudsphere.identity.Role;
-import rw.ac.rca.cloudsphere.identity.User;
-import rw.ac.rca.cloudsphere.identity.UserRepository;
-import rw.ac.rca.cloudsphere.identity.UserStatus;
+import rw.ac.rca.marketsphere.catalog.Category;
+import rw.ac.rca.marketsphere.catalog.CategoryRepository;
+import rw.ac.rca.marketsphere.catalog.Product;
+import rw.ac.rca.marketsphere.catalog.ProductRepository;
+import rw.ac.rca.marketsphere.catalog.ProductStatus;
+import rw.ac.rca.marketsphere.commerce.DiscountCode;
+import rw.ac.rca.marketsphere.commerce.DiscountCodeRepository;
+import rw.ac.rca.marketsphere.identity.LoyaltyTier;
+import rw.ac.rca.marketsphere.identity.Role;
+import rw.ac.rca.marketsphere.identity.User;
+import rw.ac.rca.marketsphere.identity.UserRepository;
+import rw.ac.rca.marketsphere.identity.UserStatus;
 
 import java.time.Instant;
 import java.util.Set;
@@ -26,17 +26,17 @@ import java.util.Set;
 @Component
 public class DataInitializer implements ApplicationRunner {
 
-    public static final String DEMO_PASSWORD = "CloudSphere1";
+    public static final String DEMO_PASSWORD = "MarketSphere1";
     private static final Logger log = LoggerFactory.getLogger(DataInitializer.class);
 
-    private final CloudSphereProperties properties;
+    private final MarketSphereProperties properties;
     private final UserRepository users;
     private final PasswordEncoder encoder;
     private final CategoryRepository categories;
     private final ProductRepository products;
     private final DiscountCodeRepository discountCodes;
 
-    public DataInitializer(CloudSphereProperties properties, UserRepository users, PasswordEncoder encoder,
+    public DataInitializer(MarketSphereProperties properties, UserRepository users, PasswordEncoder encoder,
                            CategoryRepository categories, ProductRepository products,
                            DiscountCodeRepository discountCodes) {
         this.properties = properties;
@@ -53,17 +53,18 @@ public class DataInitializer implements ApplicationRunner {
         if (!properties.seed().enabled()) {
             return;
         }
-        seedUser("demo@cloudsphere.rw", LoyaltyTier.STANDARD, UserStatus.ACTIVE, Set.of(Role.CUSTOMER));
-        seedUser("gold@cloudsphere.rw", LoyaltyTier.GOLD, UserStatus.ACTIVE, Set.of(Role.CUSTOMER));
-        User locked = seedUser("locked@cloudsphere.rw", LoyaltyTier.STANDARD, UserStatus.LOCKED, Set.of(Role.CUSTOMER));
+        seedUser("demo@marketsphere.rw", LoyaltyTier.STANDARD, UserStatus.ACTIVE, Set.of(Role.CUSTOMER));
+        seedUser("gold@marketsphere.rw", LoyaltyTier.GOLD, UserStatus.ACTIVE, Set.of(Role.CUSTOMER));
+        User locked = seedUser("locked@marketsphere.rw", LoyaltyTier.STANDARD, UserStatus.LOCKED, Set.of(Role.CUSTOMER));
         locked.setLockedUntil(Instant.now().plusSeconds(3600));
         users.save(locked);
-        seedUser("ops@cloudsphere.rw", LoyaltyTier.STANDARD, UserStatus.ACTIVE, Set.of(Role.ADMIN));
+        seedUser("ops@marketsphere.rw", LoyaltyTier.STANDARD, UserStatus.ACTIVE, Set.of(Role.ADMIN));
+        seedUser("admin@marketsphere.rw", LoyaltyTier.STANDARD, UserStatus.ACTIVE, Set.of(Role.ADMIN));
 
         Category cables = categories.findByNameIgnoreCase("Cables")
                 .orElseGet(() -> categories.save(new Category("Cables")));
         seedProduct("USB-C-01", "USB-C Cable", 15_000, 20, ProductStatus.PUBLISHED, cables,
-                "A Cloud Sphere catalogue item. Money is integer RWF.", null);
+                "A Market Sphere catalogue item. Money is integer RWF.", null);
         seedProduct("OOS-01", "Out of stock demo", 5_000, 0, ProductStatus.PUBLISHED, cables,
                 "Used in UAT for out-of-stock behaviour.", null);
         seedProduct("HIDDEN-01", "Unpublished draft", 9_999, 10, ProductStatus.DRAFT, cables, null, null);
