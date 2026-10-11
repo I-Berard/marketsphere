@@ -1,6 +1,6 @@
-CREATE SCHEMA IF NOT EXISTS cloud_sphere;
+CREATE SCHEMA IF NOT EXISTS market_sphere;
 
-CREATE TABLE cloud_sphere.users (
+CREATE TABLE market_sphere.users (
     id              UUID PRIMARY KEY,
     email           VARCHAR(255) NOT NULL,
     password_hash   VARCHAR(255) NOT NULL,
@@ -16,21 +16,21 @@ CREATE TABLE cloud_sphere.users (
     CONSTRAINT users_tier_chk CHECK (loyalty_tier IN ('STANDARD', 'GOLD'))
 );
 
-CREATE TABLE cloud_sphere.user_roles (
-    user_id UUID        NOT NULL REFERENCES cloud_sphere.users (id) ON DELETE CASCADE,
+CREATE TABLE market_sphere.user_roles (
+    user_id UUID        NOT NULL REFERENCES market_sphere.users (id) ON DELETE CASCADE,
     role    VARCHAR(32) NOT NULL,
     PRIMARY KEY (user_id, role),
     CONSTRAINT user_roles_chk CHECK (role IN ('CUSTOMER', 'ADMIN'))
 );
 
-CREATE TABLE cloud_sphere.categories (
+CREATE TABLE market_sphere.categories (
     id        UUID PRIMARY KEY,
     name      VARCHAR(120) NOT NULL,
-    parent_id UUID REFERENCES cloud_sphere.categories (id),
+    parent_id UUID REFERENCES market_sphere.categories (id),
     CONSTRAINT categories_name_unique UNIQUE (name)
 );
 
-CREATE TABLE cloud_sphere.products (
+CREATE TABLE market_sphere.products (
     id          UUID PRIMARY KEY,
     sku         VARCHAR(64)  NOT NULL,
     name        VARCHAR(255) NOT NULL,
@@ -38,7 +38,7 @@ CREATE TABLE cloud_sphere.products (
     price_rwf   BIGINT       NOT NULL,
     stock_qty   INTEGER      NOT NULL,
     status      VARCHAR(32)  NOT NULL,
-    category_id UUID REFERENCES cloud_sphere.categories (id),
+    category_id UUID REFERENCES market_sphere.categories (id),
     version     BIGINT       NOT NULL DEFAULT 0,
     created_at  TIMESTAMPTZ  NOT NULL,
     updated_at  TIMESTAMPTZ  NOT NULL,
@@ -48,11 +48,11 @@ CREATE TABLE cloud_sphere.products (
     CONSTRAINT products_status_chk CHECK (status IN ('DRAFT', 'PUBLISHED'))
 );
 
-CREATE INDEX idx_products_status_name ON cloud_sphere.products (status, name);
+CREATE INDEX idx_products_status_name ON market_sphere.products (status, name);
 
-CREATE TABLE cloud_sphere.carts (
+CREATE TABLE market_sphere.carts (
     id            UUID PRIMARY KEY,
-    user_id       UUID UNIQUE REFERENCES cloud_sphere.users (id),
+    user_id       UUID UNIQUE REFERENCES market_sphere.users (id),
     guest_token   VARCHAR(64) UNIQUE,
     discount_code VARCHAR(16),
     updated_at    TIMESTAMPTZ NOT NULL,
@@ -62,17 +62,17 @@ CREATE TABLE cloud_sphere.carts (
     )
 );
 
-CREATE TABLE cloud_sphere.cart_items (
+CREATE TABLE market_sphere.cart_items (
     id             UUID PRIMARY KEY,
-    cart_id        UUID    NOT NULL REFERENCES cloud_sphere.carts (id) ON DELETE CASCADE,
-    product_id     UUID    NOT NULL REFERENCES cloud_sphere.products (id),
+    cart_id        UUID    NOT NULL REFERENCES market_sphere.carts (id) ON DELETE CASCADE,
+    product_id     UUID    NOT NULL REFERENCES market_sphere.products (id),
     qty            INTEGER NOT NULL,
     unit_price_rwf BIGINT  NOT NULL,
     CONSTRAINT cart_items_qty_chk CHECK (qty > 0),
     CONSTRAINT cart_items_unique UNIQUE (cart_id, product_id)
 );
 
-CREATE TABLE cloud_sphere.discount_codes (
+CREATE TABLE market_sphere.discount_codes (
     id           UUID PRIMARY KEY,
     code         VARCHAR(16) NOT NULL,
     percent_off  INTEGER     NOT NULL,
@@ -85,17 +85,17 @@ CREATE TABLE cloud_sphere.discount_codes (
     CONSTRAINT discount_codes_format_chk CHECK (code ~ '^[A-Z0-9]{5,10}$')
 );
 
-CREATE TABLE cloud_sphere.wishlist_items (
-    user_id    UUID        NOT NULL REFERENCES cloud_sphere.users (id) ON DELETE CASCADE,
-    product_id UUID        NOT NULL REFERENCES cloud_sphere.products (id),
+CREATE TABLE market_sphere.wishlist_items (
+    user_id    UUID        NOT NULL REFERENCES market_sphere.users (id) ON DELETE CASCADE,
+    product_id UUID        NOT NULL REFERENCES market_sphere.products (id),
     added_at   TIMESTAMPTZ NOT NULL,
     PRIMARY KEY (user_id, product_id)
 );
 
-CREATE TABLE cloud_sphere.orders (
+CREATE TABLE market_sphere.orders (
     id               UUID PRIMARY KEY,
     order_number     VARCHAR(32) NOT NULL,
-    user_id          UUID        NOT NULL REFERENCES cloud_sphere.users (id),
+    user_id          UUID        NOT NULL REFERENCES market_sphere.users (id),
     status           VARCHAR(32) NOT NULL,
     subtotal_rwf     BIGINT      NOT NULL,
     discount_rwf     BIGINT      NOT NULL,
@@ -111,21 +111,21 @@ CREATE TABLE cloud_sphere.orders (
     ))
 );
 
-CREATE INDEX idx_orders_user ON cloud_sphere.orders (user_id, placed_at DESC);
+CREATE INDEX idx_orders_user ON market_sphere.orders (user_id, placed_at DESC);
 
-CREATE TABLE cloud_sphere.order_lines (
+CREATE TABLE market_sphere.order_lines (
     id             UUID PRIMARY KEY,
-    order_id       UUID        NOT NULL REFERENCES cloud_sphere.orders (id) ON DELETE CASCADE,
-    product_id     UUID        NOT NULL REFERENCES cloud_sphere.products (id),
+    order_id       UUID        NOT NULL REFERENCES market_sphere.orders (id) ON DELETE CASCADE,
+    product_id     UUID        NOT NULL REFERENCES market_sphere.products (id),
     sku            VARCHAR(64) NOT NULL,
     name           VARCHAR(255) NOT NULL,
     qty            INTEGER     NOT NULL,
     unit_price_rwf BIGINT      NOT NULL
 );
 
-CREATE TABLE cloud_sphere.payments (
+CREATE TABLE market_sphere.payments (
     id          UUID PRIMARY KEY,
-    order_id    UUID        NOT NULL UNIQUE REFERENCES cloud_sphere.orders (id),
+    order_id    UUID        NOT NULL UNIQUE REFERENCES market_sphere.orders (id),
     provider    VARCHAR(32) NOT NULL,
     amount_rwf  BIGINT      NOT NULL,
     status      VARCHAR(32) NOT NULL,
@@ -135,9 +135,9 @@ CREATE TABLE cloud_sphere.payments (
     CONSTRAINT payments_status_chk CHECK (status IN ('PENDING', 'SUCCEEDED', 'DECLINED', 'TIMED_OUT'))
 );
 
-CREATE TABLE cloud_sphere.shipments (
+CREATE TABLE market_sphere.shipments (
     id           UUID PRIMARY KEY,
-    order_id     UUID        NOT NULL UNIQUE REFERENCES cloud_sphere.orders (id),
+    order_id     UUID        NOT NULL UNIQUE REFERENCES market_sphere.orders (id),
     tracking_no  VARCHAR(64) NOT NULL,
     state        VARCHAR(32) NOT NULL,
     shipped_at   TIMESTAMPTZ NOT NULL,
