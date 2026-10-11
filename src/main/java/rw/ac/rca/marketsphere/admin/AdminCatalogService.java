@@ -1,15 +1,15 @@
-package rw.ac.rca.cloudsphere.admin;
+package rw.ac.rca.marketsphere.admin;
 
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import rw.ac.rca.cloudsphere.catalog.Category;
-import rw.ac.rca.cloudsphere.catalog.CategoryRepository;
-import rw.ac.rca.cloudsphere.catalog.CategoryResponse;
-import rw.ac.rca.cloudsphere.catalog.Product;
-import rw.ac.rca.cloudsphere.catalog.ProductRepository;
-import rw.ac.rca.cloudsphere.catalog.ProductResponse;
-import rw.ac.rca.cloudsphere.common.exception.ApiException;
+import rw.ac.rca.marketsphere.catalog.Category;
+import rw.ac.rca.marketsphere.catalog.CategoryRepository;
+import rw.ac.rca.marketsphere.catalog.CategoryResponse;
+import rw.ac.rca.marketsphere.catalog.Product;
+import rw.ac.rca.marketsphere.catalog.ProductRepository;
+import rw.ac.rca.marketsphere.catalog.ProductResponse;
+import rw.ac.rca.marketsphere.common.exception.ApiException;
 
 import java.util.List;
 import java.util.UUID;
