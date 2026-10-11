@@ -1,4 +1,4 @@
-package rw.ac.rca.cloudsphere.cart;
+package rw.ac.rca.marketsphere.cart;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
