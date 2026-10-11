@@ -1,4 +1,4 @@
-package rw.ac.rca.cloudsphere.wishlist;
+package rw.ac.rca.marketsphere.wishlist;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
