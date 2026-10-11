@@ -1,17 +1,17 @@
-package rw.ac.rca.cloudsphere.cart;
+package rw.ac.rca.marketsphere.cart;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import rw.ac.rca.cloudsphere.catalog.Product;
-import rw.ac.rca.cloudsphere.catalog.ProductRepository;
-import rw.ac.rca.cloudsphere.catalog.ProductStatus;
-import rw.ac.rca.cloudsphere.commerce.DiscountCode;
-import rw.ac.rca.cloudsphere.commerce.DiscountCodeRepository;
-import rw.ac.rca.cloudsphere.commerce.Pricing;
-import rw.ac.rca.cloudsphere.common.exception.ApiException;
-import rw.ac.rca.cloudsphere.identity.LoyaltyTier;
-import rw.ac.rca.cloudsphere.identity.User;
-import rw.ac.rca.cloudsphere.identity.UserRepository;
+import rw.ac.rca.marketsphere.catalog.Product;
+import rw.ac.rca.marketsphere.catalog.ProductRepository;
+import rw.ac.rca.marketsphere.catalog.ProductStatus;
+import rw.ac.rca.marketsphere.commerce.DiscountCode;
+import rw.ac.rca.marketsphere.commerce.DiscountCodeRepository;
+import rw.ac.rca.marketsphere.commerce.Pricing;
+import rw.ac.rca.marketsphere.common.exception.ApiException;
+import rw.ac.rca.marketsphere.identity.LoyaltyTier;
+import rw.ac.rca.marketsphere.identity.User;
+import rw.ac.rca.marketsphere.identity.UserRepository;
 
 import java.time.Instant;
 import java.util.ArrayList;
