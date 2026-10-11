@@ -1,4 +1,4 @@
-package rw.ac.rca.cloudsphere.admin;
+package rw.ac.rca.marketsphere.admin;
 
 import jakarta.validation.constraints.Min;
 
