@@ -1,4 +1,4 @@
-package rw.ac.rca.cloudsphere;
+package rw.ac.rca.marketsphere;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -12,13 +12,13 @@ import org.testcontainers.utility.DockerImageName;
 
 @SpringBootTest
 @Testcontainers(disabledWithoutDocker = true)
-class CloudsphereApplicationTests {
+class MarketsphereApplicationTests {
 
     @Container
     static final PostgreSQLContainer<?> POSTGRES = new PostgreSQLContainer<>(DockerImageName.parse("postgres:16-alpine"))
-            .withDatabaseName("cloudsphere")
-            .withUsername("cloudsphere")
-            .withPassword("cloudsphere");
+            .withDatabaseName("marketsphere")
+            .withUsername("marketsphere")
+            .withPassword("marketsphere");
 
     @Container
     static final GenericContainer<?> REDIS = new GenericContainer<>(DockerImageName.parse("redis:7-alpine"))
@@ -31,7 +31,7 @@ class CloudsphereApplicationTests {
         registry.add("spring.datasource.password", POSTGRES::getPassword);
         registry.add("spring.data.redis.host", REDIS::getHost);
         registry.add("spring.data.redis.port", () -> REDIS.getMappedPort(6379));
-        registry.add("cloudsphere.jwt.secret", () -> "cloudsphere-test-secret-key-must-be-32b!!");
+        registry.add("marketsphere.jwt.secret", () -> "marketsphere-test-secret-key-must-be-32b!!");
     }
 
     @Test
