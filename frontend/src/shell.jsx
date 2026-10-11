@@ -44,7 +44,7 @@ export function Shell() {
         <div className="max-w-6xl w-full mx-auto px-4 h-full flex items-center gap-5">
           <Link className="flex items-center gap-2.5 font-bold text-lg shrink-0" to="/">
             <Mark />
-            Cloud Sphere
+            Market Sphere
           </Link>
           <form
             className="flex-1 hidden md:flex items-center gap-2 bg-surface border border-gray-200 rounded-full px-4 py-2 max-w-xl focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20 transition-all"
@@ -99,7 +99,7 @@ export function Shell() {
         <div className="max-w-6xl w-full mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="md:col-span-1">
             <div className="flex items-center gap-2 font-bold text-text-main mb-3">
-              <Mark /> Cloud Sphere
+              <Mark /> Market Sphere
             </div>
             <p className="leading-relaxed">Demo store for SPEDO501. Catalogue money is integer RWF. No native apps, no live payment rails.</p>
           </div>
