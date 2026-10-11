@@ -115,7 +115,7 @@ export function StoreProvider({ children }) {
     }
     const cartRes = await api("/cart", { token: data.accessToken, cartToken: nextGuest });
     rememberCart(cartRes.data, cartRes.cartToken);
-    notify("Welcome to Cloud Sphere.");
+    notify("Welcome to Market Sphere.");
     return data.user;
   };
 
