@@ -1,4 +1,4 @@
-package rw.ac.rca.cloudsphere.config;
+package rw.ac.rca.marketsphere.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -14,7 +14,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.stereotype.Component;
-import rw.ac.rca.cloudsphere.common.web.TraceIdFilter;
+import rw.ac.rca.marketsphere.common.web.TraceIdFilter;
 
 import java.io.IOException;
 import java.net.URI;
@@ -42,7 +42,7 @@ public class SecurityProblemHandlers implements AuthenticationEntryPoint, Access
                        HttpServletRequest request) throws IOException {
         ProblemDetail pd = ProblemDetail.forStatusAndDetail(status, detail);
         pd.setTitle(status.getReasonPhrase());
-        pd.setType(URI.create("https://cloudsphere.rw/errors/" + code));
+        pd.setType(URI.create("https://marketsphere.rw/errors/" + code));
         pd.setInstance(URI.create(request.getRequestURI()));
         pd.setProperty("code", code);
         pd.setProperty("traceId", MDC.get(TraceIdFilter.MDC_KEY));
