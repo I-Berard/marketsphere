@@ -26,7 +26,7 @@ export function HomePage() {
         <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMzAiIGN5PSIzMCIgcj0iMiIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjEpIi8+PC9zdmc+')] opacity-50"></div>
         <div className="max-w-6xl mx-auto px-8 w-full relative z-10">
           <p className="text-sm font-bold uppercase tracking-widest text-white/90 mb-4 inline-block">Rwanda · integer RWF</p>
-          <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-6 leading-tight">Shop Cloud Sphere</h1>
+          <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-6 leading-tight">Shop Market Sphere</h1>
           <p className="text-lg md:text-xl text-white/90 max-w-2xl mb-10 mx-auto md:mx-0">Cables and accessories for everyday work. Gold members ship free. Buy 5+ of a line for 10% off.</p>
           <div className="flex flex-wrap gap-4 justify-center md:justify-start">
             <a className="btn bg-white text-primary hover:bg-gray-50 shadow-lg" href="#catalogue">Browse catalogue</a>
