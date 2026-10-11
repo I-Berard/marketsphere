@@ -1,9 +1,9 @@
-package rw.ac.rca.cloudsphere.security;
+package rw.ac.rca.marketsphere.security;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import rw.ac.rca.cloudsphere.identity.Role;
-import rw.ac.rca.cloudsphere.identity.User;
+import rw.ac.rca.marketsphere.identity.Role;
+import rw.ac.rca.marketsphere.identity.User;
 
 import java.util.Collection;
 import java.util.UUID;
