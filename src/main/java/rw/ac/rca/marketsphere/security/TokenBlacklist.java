@@ -1,4 +1,4 @@
-package rw.ac.rca.cloudsphere.security;
+package rw.ac.rca.marketsphere.security;
 
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
@@ -9,7 +9,7 @@ import java.time.Instant;
 @Service
 public class TokenBlacklist {
 
-    private static final String PREFIX = "cloudsphere:revoked:";
+    private static final String PREFIX = "marketsphere:revoked:";
     private final StringRedisTemplate redis;
 
     public TokenBlacklist(StringRedisTemplate redis) {
