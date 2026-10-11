@@ -1,4 +1,4 @@
-package rw.ac.rca.cloudsphere.catalog;
+package rw.ac.rca.marketsphere.catalog;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -22,7 +22,7 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "products", schema = "cloud_sphere")
+@Table(name = "products", schema = "market_sphere")
 public class Product {
 
     @Id
