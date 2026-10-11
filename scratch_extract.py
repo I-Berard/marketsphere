@@ -21,5 +21,5 @@ def extract_text_from_docx(docx_path):
 
 if __name__ == '__main__':
     print("----- SRS -----")
-    srs = extract_text_from_docx('/home/berard/disk2/DevOps/cloudsphere/IRAKOZE MURASIRA Berard Submission Y3C /CSS-SRS-2026-001_v1.0.docx')
+    srs = extract_text_from_docx('/home/berard/disk2/DevOps/marketsphere/IRAKOZE MURASIRA Berard Submission Y3C /CSS-SRS-2026-001_v1.0.docx')
     print(srs[:2000]) # First 2000 chars
