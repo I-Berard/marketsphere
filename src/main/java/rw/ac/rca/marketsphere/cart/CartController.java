@@ -1,4 +1,4 @@
-package rw.ac.rca.cloudsphere.cart;
+package rw.ac.rca.marketsphere.cart;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirements;
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import rw.ac.rca.cloudsphere.security.AuthPrincipal;
+import rw.ac.rca.marketsphere.security.AuthPrincipal;
 
 import java.util.UUID;
 
