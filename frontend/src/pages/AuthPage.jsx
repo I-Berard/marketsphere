@@ -26,8 +26,8 @@ function Eye({ off = false }) {
 export function AuthPage({ mode }) {
   const { login, register } = useStore();
   const navigate = useNavigate();
-  const [email, setEmail] = useState(mode === "login" ? "demo@cloudsphere.rw" : "");
-  const [password, setPassword] = useState(mode === "login" ? "CloudSphere1" : "");
+  const [email, setEmail] = useState(mode === "login" ? "demo@marketsphere.rw" : "");
+  const [password, setPassword] = useState(mode === "login" ? "MarketSphere1" : "");
   const [phone, setPhone] = useState("0780000001");
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
@@ -52,7 +52,7 @@ export function AuthPage({ mode }) {
       <form className="glass-card w-full max-w-md p-8 md:p-10 shadow-2xl relative z-10" onSubmit={onSubmit}>
         <div className="flex justify-center mb-6"><Mark /></div>
         <h1 className="text-3xl font-bold text-center text-text-main mb-2 tracking-tight">{mode === "login" ? "Welcome back" : "Create account"}</h1>
-        <p className="text-center text-text-muted mb-8 font-medium">Cloud Sphere ecommerce</p>
+        <p className="text-center text-text-muted mb-8 font-medium">Market Sphere ecommerce</p>
         
         <div className="flex flex-col gap-1.5 mb-5">
           <label className="text-xs font-bold text-text-muted uppercase tracking-wider ml-1">Email</label>
