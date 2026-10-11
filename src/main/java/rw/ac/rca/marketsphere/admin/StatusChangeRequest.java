@@ -1,6 +1,6 @@
-package rw.ac.rca.cloudsphere.admin;
+package rw.ac.rca.marketsphere.admin;
 
 import jakarta.validation.constraints.NotNull;
-import rw.ac.rca.cloudsphere.order.OrderStatus;
+import rw.ac.rca.marketsphere.order.OrderStatus;
 
 public record StatusChangeRequest(@NotNull OrderStatus status) {}
