@@ -1,10 +1,10 @@
-package rw.ac.rca.cloudsphere.catalog;
+package rw.ac.rca.marketsphere.catalog;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import rw.ac.rca.cloudsphere.common.exception.ApiException;
+import rw.ac.rca.marketsphere.common.exception.ApiException;
 
 import java.util.List;
 import java.util.UUID;
