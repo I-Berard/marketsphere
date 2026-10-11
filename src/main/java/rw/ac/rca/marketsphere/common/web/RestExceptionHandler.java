@@ -1,4 +1,4 @@
-package rw.ac.rca.cloudsphere.common.web;
+package rw.ac.rca.marketsphere.common.web;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintViolationException;
@@ -13,7 +13,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import rw.ac.rca.cloudsphere.common.exception.ApiException;
+import rw.ac.rca.marketsphere.common.exception.ApiException;
 
 import java.net.URI;
 import java.util.stream.Collectors;
@@ -68,7 +68,7 @@ public class RestExceptionHandler {
     private ProblemDetail problem(HttpStatus status, String code, String detail, HttpServletRequest request) {
         ProblemDetail pd = ProblemDetail.forStatusAndDetail(status, detail);
         pd.setTitle(status.getReasonPhrase());
-        pd.setType(URI.create("https://cloudsphere.rw/errors/" + code));
+        pd.setType(URI.create("https://marketsphere.rw/errors/" + code));
         pd.setInstance(URI.create(request.getRequestURI()));
         pd.setProperty("code", code);
         pd.setProperty("traceId", MDC.get(TraceIdFilter.MDC_KEY));
