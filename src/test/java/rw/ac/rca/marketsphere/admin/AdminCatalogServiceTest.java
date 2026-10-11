@@ -1,17 +1,17 @@
-package rw.ac.rca.cloudsphere.admin;
+package rw.ac.rca.marketsphere.admin;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import rw.ac.rca.cloudsphere.catalog.Category;
-import rw.ac.rca.cloudsphere.catalog.CategoryRepository;
-import rw.ac.rca.cloudsphere.catalog.Product;
-import rw.ac.rca.cloudsphere.catalog.ProductRepository;
-import rw.ac.rca.cloudsphere.catalog.ProductResponse;
-import rw.ac.rca.cloudsphere.catalog.ProductStatus;
-import rw.ac.rca.cloudsphere.common.exception.ApiException;
+import rw.ac.rca.marketsphere.catalog.Category;
+import rw.ac.rca.marketsphere.catalog.CategoryRepository;
+import rw.ac.rca.marketsphere.catalog.Product;
+import rw.ac.rca.marketsphere.catalog.ProductRepository;
+import rw.ac.rca.marketsphere.catalog.ProductResponse;
+import rw.ac.rca.marketsphere.catalog.ProductStatus;
+import rw.ac.rca.marketsphere.common.exception.ApiException;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -42,7 +42,7 @@ class AdminCatalogServiceTest {
                 "SKU-001", "Product", "Desc", 1000, 10, ProductStatus.PUBLISHED, "Electronics", null
         );
 
-        when(products.findBySkuIgnoreCase("SKU-001")).thenReturn(Optional.empty());
+        when(products.existsBySkuIgnoreCase("SKU-001")).thenReturn(false);
         when(categories.findByNameIgnoreCase("Electronics")).thenReturn(Optional.empty());
         when(categories.save(any(Category.class))).thenAnswer(i -> i.getArgument(0));
         when(products.save(any(Product.class))).thenAnswer(i -> {
@@ -51,7 +51,7 @@ class AdminCatalogServiceTest {
             return p;
         });
 
-        ProductResponse response = adminService.createProduct(request);
+        ProductResponse response = adminService.create(request);
         assertNotNull(response);
         assertEquals("SKU-001", response.sku());
         verify(products, times(1)).save(any(Product.class));
@@ -67,7 +67,7 @@ class AdminCatalogServiceTest {
         when(products.findById(productId)).thenReturn(Optional.of(product));
         when(products.save(any(Product.class))).thenAnswer(i -> i.getArgument(0));
 
-        ProductResponse response = adminService.updateStock(productId, new StockUpdateRequest(20));
+        ProductResponse response = adminService.updateStock(productId, 20);
         assertEquals(20, product.getStockQty());
     }
 }
