@@ -1,4 +1,4 @@
-package rw.ac.rca.cloudsphere.identity;
+package rw.ac.rca.marketsphere.identity;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
