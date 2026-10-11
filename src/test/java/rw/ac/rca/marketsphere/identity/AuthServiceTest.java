@@ -1,4 +1,4 @@
-package rw.ac.rca.cloudsphere.identity;
+package rw.ac.rca.marketsphere.identity;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -6,9 +6,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import rw.ac.rca.cloudsphere.cart.CartService;
-import rw.ac.rca.cloudsphere.common.exception.ApiException;
-import rw.ac.rca.cloudsphere.security.JwtService;
+import rw.ac.rca.marketsphere.cart.CartService;
+import rw.ac.rca.marketsphere.common.exception.ApiException;
+import rw.ac.rca.marketsphere.security.JwtService;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -38,11 +38,11 @@ class AuthServiceTest {
 
     @Test
     void testRegister_Success() {
-        RegisterRequest request = new RegisterRequest("test@cloudsphere.rw", "Pass123!", "John", "Doe", "0780000000");
+        RegisterRequest request = new RegisterRequest("test@marketsphere.rw", "Pass1234", "0780000000");
 
         when(users.existsByEmailIgnoreCase(request.email())).thenReturn(false);
         when(encoder.encode(request.password())).thenReturn("encodedPassword");
-        when(jwtService.generateToken(any(User.class))).thenReturn("token123");
+        when(jwtService.issue(any(), any(), any())).thenReturn("token123");
         when(users.save(any(User.class))).thenAnswer(i -> {
             User u = i.getArgument(0);
             u.setId(UUID.randomUUID());
@@ -56,7 +56,7 @@ class AuthServiceTest {
 
     @Test
     void testRegister_EmailExists() {
-        RegisterRequest request = new RegisterRequest("test@cloudsphere.rw", "Pass123!", "John", "Doe", "0780000000");
+        RegisterRequest request = new RegisterRequest("test@marketsphere.rw", "Pass1234", "0780000000");
         when(users.existsByEmailIgnoreCase(request.email())).thenReturn(true);
 
         assertThrows(ApiException.class, () -> authService.register(request, null));
