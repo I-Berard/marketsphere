@@ -1,4 +1,4 @@
-package rw.ac.rca.cloudsphere.order;
+package rw.ac.rca.marketsphere.order;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -24,7 +24,7 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "orders", schema = "cloud_sphere")
+@Table(name = "orders", schema = "market_sphere")
 public class ShopOrder {
 
     @Id
