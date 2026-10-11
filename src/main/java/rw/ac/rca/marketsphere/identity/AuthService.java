@@ -1,14 +1,14 @@
-package rw.ac.rca.cloudsphere.identity;
+package rw.ac.rca.marketsphere.identity;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import rw.ac.rca.cloudsphere.cart.CartService;
-import rw.ac.rca.cloudsphere.common.exception.ApiException;
-import rw.ac.rca.cloudsphere.config.CloudSphereProperties;
-import rw.ac.rca.cloudsphere.security.JwtService;
+import rw.ac.rca.marketsphere.cart.CartService;
+import rw.ac.rca.marketsphere.common.exception.ApiException;
+import rw.ac.rca.marketsphere.config.MarketSphereProperties;
+import rw.ac.rca.marketsphere.security.JwtService;
 
 import java.time.Instant;
 import java.util.Set;
@@ -22,11 +22,11 @@ public class AuthService {
     private final UserRepository users;
     private final PasswordEncoder encoder;
     private final JwtService jwtService;
-    private final CloudSphereProperties properties;
+    private final MarketSphereProperties properties;
     private final CartService cartService;
 
     public AuthService(UserRepository users, PasswordEncoder encoder, JwtService jwtService,
-                       CloudSphereProperties properties, CartService cartService) {
+                       MarketSphereProperties properties, CartService cartService) {
         this.users = users;
         this.encoder = encoder;
         this.jwtService = jwtService;
