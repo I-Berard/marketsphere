@@ -1,16 +1,16 @@
-package rw.ac.rca.cloudsphere.cart;
+package rw.ac.rca.marketsphere.cart;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import rw.ac.rca.cloudsphere.catalog.Product;
-import rw.ac.rca.cloudsphere.catalog.ProductRepository;
-import rw.ac.rca.cloudsphere.catalog.ProductStatus;
-import rw.ac.rca.cloudsphere.commerce.Pricing;
-import rw.ac.rca.cloudsphere.common.exception.ApiException;
-import rw.ac.rca.cloudsphere.config.CloudSphereProperties;
+import rw.ac.rca.marketsphere.catalog.Product;
+import rw.ac.rca.marketsphere.catalog.ProductRepository;
+import rw.ac.rca.marketsphere.catalog.ProductStatus;
+import rw.ac.rca.marketsphere.commerce.DiscountCodeRepository;
+import rw.ac.rca.marketsphere.common.exception.ApiException;
+import rw.ac.rca.marketsphere.identity.UserRepository;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -26,9 +26,9 @@ class CartServiceTest {
     @Mock
     private ProductRepository products;
     @Mock
-    private Pricing pricing;
+    private DiscountCodeRepository discountCodes;
     @Mock
-    private CloudSphereProperties props;
+    private UserRepository users;
 
     @InjectMocks
     private CartService cartService;
@@ -46,7 +46,7 @@ class CartServiceTest {
         when(products.findById(request.productId())).thenReturn(Optional.empty());
 
         ApiException exception = assertThrows(ApiException.class, () -> cartService.addItem(userId, null, request));
-        assertEquals(404, exception.getStatus().value());
+        assertEquals(404, exception.status().value());
     }
 
     @Test
@@ -60,7 +60,7 @@ class CartServiceTest {
         when(products.findById(request.productId())).thenReturn(Optional.of(product));
 
         ApiException exception = assertThrows(ApiException.class, () -> cartService.addItem(userId, null, request));
-        assertEquals(404, exception.getStatus().value());
+        assertEquals(404, exception.status().value());
     }
 
     @Test
@@ -75,7 +75,7 @@ class CartServiceTest {
         when(products.findById(request.productId())).thenReturn(Optional.of(product));
 
         ApiException exception = assertThrows(ApiException.class, () -> cartService.addItem(userId, null, request));
-        assertEquals(409, exception.getStatus().value());
+        assertEquals(409, exception.status().value());
     }
 
     @Test
@@ -88,8 +88,10 @@ class CartServiceTest {
         product.setPriceRwf(1000);
         AddItemRequest request = new AddItemRequest(product.getId(), 1);
 
-        Cart cart = new Cart(userId);
-        
+        Cart cart = new Cart();
+        cart.setId(UUID.randomUUID());
+        cart.setUserId(userId);
+
         when(products.findById(request.productId())).thenReturn(Optional.of(product));
         when(carts.findByUserId(userId)).thenReturn(Optional.of(cart));
         when(carts.save(any(Cart.class))).thenReturn(cart);
