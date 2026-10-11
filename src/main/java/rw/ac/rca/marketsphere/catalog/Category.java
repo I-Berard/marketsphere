@@ -1,4 +1,4 @@
-package rw.ac.rca.cloudsphere.catalog;
+package rw.ac.rca.marketsphere.catalog;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -14,7 +14,7 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "categories", schema = "cloud_sphere")
+@Table(name = "categories", schema = "market_sphere")
 public class Category {
     @Id
     private UUID id = UUID.randomUUID();
