@@ -1,10 +1,10 @@
-package rw.ac.rca.cloudsphere.security;
+package rw.ac.rca.marketsphere.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.stereotype.Service;
-import rw.ac.rca.cloudsphere.config.CloudSphereProperties;
+import rw.ac.rca.marketsphere.config.MarketSphereProperties;
 
 import javax.crypto.SecretKey;
 import java.nio.charset.StandardCharsets;
@@ -16,10 +16,10 @@ import java.util.UUID;
 @Service
 public class JwtService {
 
-    private final CloudSphereProperties properties;
+    private final MarketSphereProperties properties;
     private final SecretKey key;
 
-    public JwtService(CloudSphereProperties properties) {
+    public JwtService(MarketSphereProperties properties) {
         this.properties = properties;
         byte[] bytes = properties.jwt().secret().getBytes(StandardCharsets.UTF_8);
         if (bytes.length < 32) {
