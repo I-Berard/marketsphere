@@ -1,4 +1,4 @@
-package rw.ac.rca.cloudsphere.commerce;
+package rw.ac.rca.marketsphere.commerce;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -15,7 +15,7 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "discount_codes", schema = "cloud_sphere")
+@Table(name = "discount_codes", schema = "market_sphere")
 public class DiscountCode {
 
     @Id
