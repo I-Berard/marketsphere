@@ -1,4 +1,4 @@
-package rw.ac.rca.cloudsphere.order;
+package rw.ac.rca.marketsphere.order;
 
 public enum ShipmentState {
     SHIPPED, DELIVERED
