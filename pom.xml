@@ -9,10 +9,10 @@
 		<relativePath/>
 	</parent>
 	<groupId>rw.ac.rca</groupId>
-	<artifactId>cloudsphere</artifactId>
+	<artifactId>marketsphere</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
-	<name>Cloud Sphere API</name>
-	<description>Production-grade backend for the Cloud Sphere ecommerce capstone (SPEDO501)</description>
+	<name>Market Sphere API</name>
+	<description>Production-grade backend for the Market Sphere ecommerce capstone (SPEDO501)</description>
 	<properties>
 		<java.version>21</java.version>
 		<jjwt.version>0.12.6</jjwt.version>
