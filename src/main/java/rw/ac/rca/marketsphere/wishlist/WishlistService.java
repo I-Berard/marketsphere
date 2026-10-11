@@ -1,14 +1,14 @@
-package rw.ac.rca.cloudsphere.wishlist;
+package rw.ac.rca.marketsphere.wishlist;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import rw.ac.rca.cloudsphere.cart.AddItemRequest;
-import rw.ac.rca.cloudsphere.cart.CartResponse;
-import rw.ac.rca.cloudsphere.cart.CartService;
-import rw.ac.rca.cloudsphere.catalog.Product;
-import rw.ac.rca.cloudsphere.catalog.ProductRepository;
-import rw.ac.rca.cloudsphere.catalog.ProductStatus;
-import rw.ac.rca.cloudsphere.common.exception.ApiException;
+import rw.ac.rca.marketsphere.cart.AddItemRequest;
+import rw.ac.rca.marketsphere.cart.CartResponse;
+import rw.ac.rca.marketsphere.cart.CartService;
+import rw.ac.rca.marketsphere.catalog.Product;
+import rw.ac.rca.marketsphere.catalog.ProductRepository;
+import rw.ac.rca.marketsphere.catalog.ProductStatus;
+import rw.ac.rca.marketsphere.common.exception.ApiException;
 
 import java.util.List;
 import java.util.UUID;
