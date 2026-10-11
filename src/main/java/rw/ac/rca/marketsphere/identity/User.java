@@ -1,4 +1,4 @@
-package rw.ac.rca.cloudsphere.identity;
+package rw.ac.rca.marketsphere.identity;
 
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
@@ -25,7 +25,7 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "users", schema = "cloud_sphere")
+@Table(name = "users", schema = "market_sphere")
 public class User {
 
     @Id
@@ -54,7 +54,7 @@ public class User {
     private Instant lockedUntil;
 
     @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "user_roles", schema = "cloud_sphere", joinColumns = @JoinColumn(name = "user_id"))
+    @CollectionTable(name = "user_roles", schema = "market_sphere", joinColumns = @JoinColumn(name = "user_id"))
     @Column(name = "role")
     @Enumerated(EnumType.STRING)
     private Set<Role> roles = new HashSet<>();
