@@ -1,7 +1,7 @@
-package rw.ac.rca.cloudsphere.order;
+package rw.ac.rca.marketsphere.order;
 
 import org.junit.jupiter.api.Test;
-import rw.ac.rca.cloudsphere.common.exception.ApiException;
+import rw.ac.rca.marketsphere.common.exception.ApiException;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
