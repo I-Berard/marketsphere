@@ -1,4 +1,4 @@
-package rw.ac.rca.cloudsphere.cart;
+package rw.ac.rca.marketsphere.cart;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -18,7 +18,7 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "cart_items", schema = "cloud_sphere")
+@Table(name = "cart_items", schema = "market_sphere")
 public class CartItem {
 
     @Id
