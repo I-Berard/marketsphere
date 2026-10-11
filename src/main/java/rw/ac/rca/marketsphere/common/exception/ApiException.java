@@ -1,4 +1,4 @@
-package rw.ac.rca.cloudsphere.common.exception;
+package rw.ac.rca.marketsphere.common.exception;
 
 import org.springframework.http.HttpStatus;
 
