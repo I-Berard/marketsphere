@@ -1,4 +1,4 @@
-package rw.ac.rca.cloudsphere.commerce;
+package rw.ac.rca.marketsphere.commerce;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
