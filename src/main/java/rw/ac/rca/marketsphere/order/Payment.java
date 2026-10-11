@@ -1,4 +1,4 @@
-package rw.ac.rca.cloudsphere.order;
+package rw.ac.rca.marketsphere.order;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -20,7 +20,7 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "payments", schema = "cloud_sphere")
+@Table(name = "payments", schema = "market_sphere")
 public class Payment {
 
     @Id
