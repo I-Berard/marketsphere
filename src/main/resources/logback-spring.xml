@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
     <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
-    <springProperty name="appName" source="spring.application.name" defaultValue="cloudsphere"/>
+    <springProperty name="appName" source="spring.application.name" defaultValue="marketsphere"/>
 
     <property name="CONSOLE_LOG_PATTERN"
               value="%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(%5p) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%12.12t]){faint} %clr(%-32.32logger{31}){cyan} %clr(:){faint} %m%n%wEx"/>
@@ -33,7 +33,7 @@
         </root>
     </springProfile>
 
-    <logger name="rw.ac.rca.cloudsphere" level="INFO"/>
+    <logger name="rw.ac.rca.marketsphere" level="INFO"/>
     <logger name="org.springframework.security" level="WARN"/>
     <logger name="org.springframework.data.repository.config" level="WARN"/>
     <logger name="org.springframework.data.jpa.repository.query" level="WARN"/>
