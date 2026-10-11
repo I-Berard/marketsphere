@@ -1,6 +1,6 @@
-package rw.ac.rca.cloudsphere.cart;
+package rw.ac.rca.marketsphere.cart;
 
-import rw.ac.rca.cloudsphere.identity.LoyaltyTier;
+import rw.ac.rca.marketsphere.identity.LoyaltyTier;
 
 import java.util.List;
 import java.util.UUID;
