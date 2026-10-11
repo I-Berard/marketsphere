@@ -1,7 +1,7 @@
-package rw.ac.rca.cloudsphere.commerce;
+package rw.ac.rca.marketsphere.commerce;
 
-import rw.ac.rca.cloudsphere.common.exception.ApiException;
-import rw.ac.rca.cloudsphere.identity.LoyaltyTier;
+import rw.ac.rca.marketsphere.common.exception.ApiException;
+import rw.ac.rca.marketsphere.identity.LoyaltyTier;
 
 /**
  * Pure pricing rules from SRS Appendix A / FR-DISC / FR-SHIP.
