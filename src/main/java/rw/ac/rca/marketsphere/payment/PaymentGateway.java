@@ -1,13 +1,13 @@
-package rw.ac.rca.cloudsphere.payment;
+package rw.ac.rca.marketsphere.payment;
 
-import rw.ac.rca.cloudsphere.config.CloudSphereProperties;
-import rw.ac.rca.cloudsphere.order.PaymentProvider;
-import rw.ac.rca.cloudsphere.order.PaymentStatus;
+import rw.ac.rca.marketsphere.config.MarketSphereProperties;
+import rw.ac.rca.marketsphere.order.PaymentProvider;
+import rw.ac.rca.marketsphere.order.PaymentStatus;
 
 import java.util.UUID;
 
 public interface PaymentGateway {
-    Result charge(PaymentProvider provider, long amountRwf, UUID orderId, CloudSphereProperties.StubMode override);
+    Result charge(PaymentProvider provider, long amountRwf, UUID orderId, MarketSphereProperties.StubMode override);
 
     record Result(PaymentStatus status, String gatewayRef) {}
 }
