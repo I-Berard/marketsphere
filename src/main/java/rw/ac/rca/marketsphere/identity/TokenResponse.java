@@ -1,4 +1,4 @@
-package rw.ac.rca.cloudsphere.identity;
+package rw.ac.rca.marketsphere.identity;
 
 public record TokenResponse(String accessToken, String tokenType, UserResponse user) {
     public TokenResponse(String accessToken, UserResponse user) {
