@@ -1,4 +1,4 @@
-package rw.ac.rca.cloudsphere.identity;
+package rw.ac.rca.marketsphere.identity;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
