@@ -1,4 +1,4 @@
-package rw.ac.rca.cloudsphere.common.web;
+package rw.ac.rca.marketsphere.common.web;
 
 import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.Operation;
@@ -22,7 +22,7 @@ public class HealthController {
     @GetMapping("/")
     public Map<String, String> root() {
         return Map.of(
-                "service", "cloudsphere-api",
+                "service", "marketsphere-api",
                 "docs", "/swagger-ui",
                 "health", "/api/v1/health"
         );
