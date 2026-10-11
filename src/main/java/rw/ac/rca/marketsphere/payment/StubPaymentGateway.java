@@ -1,11 +1,11 @@
-package rw.ac.rca.cloudsphere.payment;
+package rw.ac.rca.marketsphere.payment;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
-import rw.ac.rca.cloudsphere.config.CloudSphereProperties;
-import rw.ac.rca.cloudsphere.order.PaymentProvider;
-import rw.ac.rca.cloudsphere.order.PaymentStatus;
+import rw.ac.rca.marketsphere.config.MarketSphereProperties;
+import rw.ac.rca.marketsphere.order.PaymentProvider;
+import rw.ac.rca.marketsphere.order.PaymentStatus;
 
 import java.util.UUID;
 
@@ -18,15 +18,15 @@ import java.util.UUID;
 public class StubPaymentGateway implements PaymentGateway {
 
     private static final Logger log = LoggerFactory.getLogger(StubPaymentGateway.class);
-    private final CloudSphereProperties properties;
+    private final MarketSphereProperties properties;
 
-    public StubPaymentGateway(CloudSphereProperties properties) {
+    public StubPaymentGateway(MarketSphereProperties properties) {
         this.properties = properties;
     }
 
     @Override
-    public Result charge(PaymentProvider provider, long amountRwf, UUID orderId, CloudSphereProperties.StubMode override) {
-        CloudSphereProperties.StubMode mode = override != null ? override : properties.payment().stubMode();
+    public Result charge(PaymentProvider provider, long amountRwf, UUID orderId, MarketSphereProperties.StubMode override) {
+        MarketSphereProperties.StubMode mode = override != null ? override : properties.payment().stubMode();
         log.info("payment_stub provider={} amountRwf={} orderId={} mode={}", provider, amountRwf, orderId, mode);
         return switch (mode) {
             case SUCCESS -> new Result(PaymentStatus.SUCCEEDED, "stub_" + provider.name() + "_" + orderId.toString().substring(0, 8));
