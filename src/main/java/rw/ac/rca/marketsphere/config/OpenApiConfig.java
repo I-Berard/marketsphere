@@ -1,4 +1,4 @@
-package rw.ac.rca.cloudsphere.config;
+package rw.ac.rca.marketsphere.config;
 
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
@@ -17,17 +17,17 @@ import java.util.List;
 public class OpenApiConfig {
 
     @Bean
-    OpenAPI cloudSphereOpenApi() {
+    OpenAPI marketSphereOpenApi() {
         return new OpenAPI()
                 .info(new Info()
-                        .title("Cloud Sphere Ecommerce API")
+                        .title("Market Sphere Ecommerce API")
                         .version("1.0.0")
                         .description("""
-                                REST API for the Cloud Sphere containerized ecommerce platform (SPEDO501 capstone).
+                                REST API for the Market Sphere containerized ecommerce platform (SPEDO501 capstone).
                                 Maps to SRS CSS-SRS-2026-001 (UC-CS-01..13). Money is integer RWF.
                                 Guest carts use header `X-Cart-Token`. Authenticated calls use Bearer JWT.
                                 """)
-                        .contact(new Contact().name("Year 3 SPE / Cloud Sphere").email("ops@cloudsphere.rw"))
+                        .contact(new Contact().name("Year 3 SPE / Market Sphere").email("ops@marketsphere.rw"))
                         .license(new License().name("Academic / capstone")))
                 .servers(List.of(new Server().url("/").description("Current host")))
                 .components(new Components().addSecuritySchemes("bearer-jwt",
